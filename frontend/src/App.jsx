@@ -18,6 +18,7 @@ import BestSeller from "./pages/BestSeller";
 import Trending from "./pages/Trending";
 import Admin from "./admin/Admin";
 import CreateProduct from "./admin/createProduct/CreateProduct";
+import CheckoutPage from "./pages/checkout/CheckoutPage";
 
 const router = createBrowserRouter([
   {
@@ -43,6 +44,10 @@ const router = createBrowserRouter([
   {
     path: "/createProduct",
     element: <CreateProduct />,
+  },
+  {
+    path: "/checkout",
+    element: <CheckoutPage />,
   },
   {
     path: "/",

@@ -8,8 +8,10 @@ import {
   updateCartItem,
   removeCartItem,
 } from "../../features/auth/cartSlice";
+import { useNavigate } from "react-router-dom";
 
 const Cart = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const { items, loading } = useSelector((state) => state.cart);
 
@@ -37,10 +39,17 @@ const Cart = () => {
     return <EmptyCart />;
   }
 
-  const subtotal = items.reduce(
-    (acc, item) => acc + (item.product?.price || 0) * item.quantity,
-    0,
-  );
+  const discountPrice = items.map((item) => {
+    {
+      return (
+        (item.product.originalPrice -
+          (item.product.originalPrice * item.product.discountPercent) / 100) *
+        item.quantity
+      );
+    }
+  });
+
+  const subtotal = discountPrice.reduce((acc, item) => acc + item, 0);
 
   const shipping = 0;
   const total = subtotal + shipping;
@@ -102,7 +111,7 @@ const Cart = () => {
             <div className="space-y-4 text-gray-700">
               <div className="flex justify-between">
                 <span>Subtotal</span>
-                <span>₹{subtotal}</span>
+                <span>₹{Math.ceil(total)}</span>
               </div>
 
               <div className="flex justify-between">
@@ -116,10 +125,13 @@ const Cart = () => {
             <div className="flex justify-between items-center mb-6">
               <span className="text-xl font-semibold">Total</span>
 
-              <span className="text-3xl font-bold">₹{total}</span>
+              <span className="text-3xl font-bold">₹{Math.ceil(total)}</span>
             </div>
 
-            <button className="w-full bg-blue-600 hover:bg-blue-700 text-white py-4 rounded-2xl text-lg font-semibold flex items-center justify-center gap-2 transition">
+            <button
+              onClick={() => navigate("/checkout")}
+              className="w-full bg-blue-600 hover:bg-blue-700 text-white py-4 rounded-2xl text-lg font-semibold flex items-center justify-center gap-2 transition"
+            >
               Proceed to Checkout
               <ArrowRight size={20} />
             </button>

@@ -3,10 +3,16 @@ import { AppError } from "../utils/appError.js";
 import { catchAsync } from "../utils/catchAsync.js";
 
 export const createOrder = catchAsync(async (req, res, next) => {
+  // Transform products array: rename 'product' to 'productId'
+  const formattedProducts = req.body.products.map((item) => ({
+    productId: item.product,
+    quantity: item.quantity,
+  }));
+
   const order = await Order.create({
     user: req.user._id,
-    products: req.body.products,
-    quantity: req.body.quantity,
+    products: formattedProducts,
+    shippingInfo: req.body.shippingInfo,
     totalPrice: req.body.totalPrice,
   });
 

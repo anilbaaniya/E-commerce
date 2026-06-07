@@ -19,7 +19,8 @@ import Trending from "./pages/Trending";
 import Admin from "./admin/Admin";
 import CreateProduct from "./admin/createProduct/CreateProduct";
 import CheckoutPage from "./pages/checkout/CheckoutPage";
-
+import Orders from "./admin/orders/Orders";
+import AdminProduct from "./admin/AdminProduct";
 const router = createBrowserRouter([
   {
     path: "/signup",
@@ -40,11 +41,23 @@ const router = createBrowserRouter([
   {
     path: "/admin",
     element: <Admin />,
+    children: [
+      {
+        index: true,
+        path: "products",
+        element: <AdminProduct />,
+      },
+      {
+        path: "orders",
+        element: <Orders />,
+      },
+    ],
   },
-  {
-    path: "/createProduct",
-    element: <CreateProduct />,
-  },
+
+  // {
+  //   path: "/createProduct",
+  //   element: <CreateProduct />,
+  // },
   {
     path: "/checkout",
     element: <CheckoutPage />,

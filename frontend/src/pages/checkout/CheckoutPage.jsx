@@ -23,18 +23,17 @@ export default function CheckoutPage() {
     discountPrice.reduce((acc, item) => acc + item, 0),
   );
 
-  console.log(totalAmount);
-
   const subtotal = items.reduce(
     (acc, item) => acc + (item.product?.originalPrice || 0) * item.quantity,
     0,
   );
-  console.log(subtotal);
-  // console.log(items);
+
   return (
-    <div className="min-h-screen bg-gray-50 font-sans">
-      <h1 className="text-2xl font-bold text-gray-900 mb-6">Checkout</h1>
-      <div className="max-w-7xl mx-auto px-6 py-8 flex gap-6">
+    <div className="min-h-screen bg-gray-50 font-sans   py-8">
+      <h1 className="text-2xl font-bold text-gray-900 mb-6 mx-30 px-8 py-4 bg-stone-200">
+        Checkout
+      </h1>
+      <div className="max-w-7xl mx-auto  flex gap-6">
         {/* Left: Main Form */}
         <div className="flex-1">
           {/* Form Card */}
@@ -45,14 +44,16 @@ export default function CheckoutPage() {
                 <LiaShippingFastSolid className="text-3xl" />
               </div>
               <div>
-                <p className=" font-bold text-gray-900">Shipping Details</p>
+                <p className=" font-bold text-gray-900 text-xl">
+                  Shipping Details
+                </p>
                 <p className="text-xs text-gray-400 mt-0.5">
                   Please enter your delivery information
                 </p>
               </div>
             </div>
 
-            <CheckoutForm />
+            <CheckoutForm items={items} totalAmount={totalAmount} />
 
             <p className="flex items-center justify-center gap-1.5 text-xs text-gray-400 mt-3">
               Your data is secure and encrypted
@@ -64,12 +65,10 @@ export default function CheckoutPage() {
         <div className="w-110 shrink-0">
           <div className="bg-white rounded-2xl p-6 shadow-sm">
             <div className="flex items-center justify-between mb-5">
-              <h2 className="text-base font-bold text-gray-900">
-                Order Summary
-              </h2>
+              <h2 className="text-xl font-bold text-gray-900">Order Summary</h2>
               <button
                 onClick={() => navigate("/cart")}
-                className="text-sm text-green-700 font-semibold hover:underline"
+                className="text-sm text-green-700 font-semibold hover:underline cursor-pointer transition-all duration-300"
               >
                 Edit Cart
               </button>

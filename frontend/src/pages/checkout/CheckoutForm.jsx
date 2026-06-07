@@ -1,14 +1,30 @@
 import { useForm } from "react-hook-form";
+import { createOrder } from "../../services/orderService.js";
 
-export default function CheckoutForm() {
+export default function CheckoutForm({ items, totalAmount }) {
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
 
-  const onSubmit = (data) => {
-    console.log(data);
+  const onSubmit = async (data) => {
+    const products = items.map((item) => {
+      return { product: item.product._id, quantity: item.quantity };
+    });
+
+    const orderData = {
+      products: products,
+      totalPrice: totalAmount,
+      shippingInfo: data,
+    };
+    // console.log(orderData);
+    try {
+      const response = await createOrder(orderData);
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (

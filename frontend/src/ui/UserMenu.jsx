@@ -3,6 +3,7 @@ import { FaUserCircle } from "react-icons/fa";
 import { BiLogOut } from "react-icons/bi";
 import { useDispatch } from "react-redux";
 import { logoutUser } from "../features/auth/authSlice";
+import toast from "react-hot-toast";
 
 export default function UserMenu({ user }) {
   const dispatch = useDispatch();
@@ -12,6 +13,7 @@ export default function UserMenu({ user }) {
   const handleLogout = async () => {
     console.log("logout logic here");
     await dispatch(logoutUser());
+    toast.success("Logged out successfully!");
   };
 
   return (

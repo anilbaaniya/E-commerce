@@ -21,6 +21,9 @@ import CreateProduct from "./admin/createProduct/CreateProduct";
 import CheckoutPage from "./pages/checkout/CheckoutPage";
 import Orders from "./admin/orders/Orders";
 import AdminProduct from "./admin/AdminProduct";
+import OrderDetails from "./admin/orders/OrderDetails";
+import EditProduct from "./admin/EditProduct";
+import SuccessPage from "./pages/SuccessPage";
 const router = createBrowserRouter([
   {
     path: "/signup",
@@ -38,6 +41,7 @@ const router = createBrowserRouter([
     path: "/resetPassword",
     element: <ResetPassword />,
   },
+  { path: "/success", element: <SuccessPage /> },
   {
     path: "/admin",
     element: <Admin />,
@@ -48,8 +52,16 @@ const router = createBrowserRouter([
         element: <AdminProduct />,
       },
       {
+        path: "products/:id",
+        element: <EditProduct />,
+      },
+      {
         path: "orders",
         element: <Orders />,
+      },
+      {
+        path: "orders/:id",
+        element: <OrderDetails />,
       },
     ],
   },

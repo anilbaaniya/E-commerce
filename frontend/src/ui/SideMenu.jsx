@@ -82,13 +82,6 @@ export default function SideMenu({ open, setOpen }) {
             </NavLink>
 
             <NavLink
-              to="/products?gender=female&subCategory=shirts"
-              className="ml-3 hover:text-blue-700"
-            >
-              Shirt
-            </NavLink>
-
-            <NavLink
               to="/products?gender=female&subCategory=jackets"
               className="ml-3 hover:text-blue-700"
             >
@@ -96,24 +89,23 @@ export default function SideMenu({ open, setOpen }) {
             </NavLink>
 
             <NavLink
-              to="/products?gender=female&subCategory=jeans"
+              to="/products?gender=female&subCategory=jeansPants"
               className="ml-3 hover:text-blue-700"
             >
-              Jeans
+              Jeans Pants
             </NavLink>
 
             <NavLink
-              to="/products?gender=female&subCategory=pants"
+              to="/products?gender=female&subCategory=saree"
               className="ml-3 hover:text-blue-700"
             >
-              Pant
+              Saree
             </NavLink>
-
             <NavLink
-              to="/products?gender=female&subCategory=trousers"
+              to="/products?gender=female&subCategory=kurtha"
               className="ml-3 hover:text-blue-700"
             >
-              Trouser
+              Kurtha
             </NavLink>
           </div>
 

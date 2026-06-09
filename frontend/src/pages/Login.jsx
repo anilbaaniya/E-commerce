@@ -2,6 +2,7 @@ import { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { loginUser } from "../features/auth/authSlice";
+import toast from "react-hot-toast";
 
 export default function Login() {
   const dispatch = useDispatch();
@@ -16,6 +17,7 @@ export default function Login() {
     const result = await dispatch(loginUser({ email, password }));
 
     if (loginUser.fulfilled.match(result)) {
+      toast.success("Login successful!");
       navigate("/");
     }
   };

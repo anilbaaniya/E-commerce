@@ -9,6 +9,7 @@ import {
   removeCartItem,
 } from "../../features/auth/cartSlice";
 import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 const Cart = () => {
   const navigate = useNavigate();
@@ -33,6 +34,7 @@ const Cart = () => {
 
   const handleRemove = (productId) => {
     dispatch(removeCartItem(productId));
+    toast.success("Product removed from cart!");
   };
 
   if (!loading && items.length === 0) {

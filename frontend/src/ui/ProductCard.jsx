@@ -3,6 +3,7 @@ import { IoCartOutline } from "react-icons/io5";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../features/auth/cartSlice";
+import toast from "react-hot-toast";
 
 export default function ProductCard({ product }) {
   const dispatch = useDispatch();
@@ -20,8 +21,10 @@ export default function ProductCard({ product }) {
         addToCart({ productId: product._id, quantity: 1 }),
       ).unwrap();
       setAdded(true);
+      toast.success("Product added to Cart");
       setTimeout(() => setAdded(false), 1800);
     } catch (error) {
+      toast.success("Failed to add to cart");
       console.error("Add to cart failed:", error);
     }
   };

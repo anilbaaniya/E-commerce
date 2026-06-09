@@ -52,3 +52,12 @@ export const getProduct = async (id) => {
     throw error;
   }
 };
+
+export const updateProduct = async (id, data) => {
+  try {
+    return await axios.patch(`/api/v1/products/${id}`, data);
+  } catch (error) {
+    if (error.response) throw error.response;
+    throw error;
+  }
+};

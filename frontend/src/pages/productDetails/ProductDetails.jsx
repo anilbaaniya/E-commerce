@@ -92,10 +92,10 @@ export default function ProductDetails() {
           <hr className="border-stone-200" />
 
           {/* Size Selector */}
-          <SizeSelect
+          {/* <SizeSelect
             selectedSize={selectedSize}
             setSelectedSize={setSelectedSize}
-          />
+          /> */}
 
           {/* Quantity */}
           <QuantitySelect quantity={quantity} setQuantity={setQuantity} />

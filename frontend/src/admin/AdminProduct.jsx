@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
-import { getProducts } from "../services/productService";
+import { getProducts, updateProduct } from "../services/productService";
 import { NavLink } from "react-router-dom";
 import { FaEdit, FaPlus, FaTrash } from "react-icons/fa";
+import toast from "react-hot-toast";
 
 export default function AdminProduct() {
   const [products, setProducts] = useState([]);
@@ -9,13 +10,21 @@ export default function AdminProduct() {
   useEffect(() => {
     const getAllProducts = async () => {
       const res = await getProducts();
-      // console.log(res.data.data);
+      console.log(res.data.data);
       setProducts(res.data.data || []);
     };
     getAllProducts();
   }, []);
+
+  const handleDelete = async (id) => {
+    const res = await updateProduct(id, { isActive: false });
+    console.log(res);
+    setProducts((products) => products.filter((product) => product._id !== id));
+    toast.success("Product deleted successfully!");
+  };
+
   return (
-    <div className="w-full p-8">
+    <div className="w-full p-8 ">
       {/* Header */}
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-3xl font-bold text-black">Products</h1>
@@ -72,17 +81,23 @@ export default function AdminProduct() {
 
                 <td className="p-4">
                   <span className="bg-green-100 text-green-700 px-3 py-1 rounded-full text-sm">
-                    {product.status}
+                    {product.isActive === true ? "Active" : "Inactive"}
                   </span>
                 </td>
 
                 <td className="p-4 flex gap-3">
-                  <button className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg">
+                  <NavLink
+                    to={`${product._id}`}
+                    className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg"
+                  >
                     <FaEdit />
                     Edit
-                  </button>
+                  </NavLink>
 
-                  <button className="flex items-center gap-2 border border-red-500 text-red-500 hover:bg-red-50 px-4 py-2 rounded-lg">
+                  <button
+                    onClick={() => handleDelete(product._id)}
+                    className="flex items-center gap-2 border border-red-500 text-red-500 hover:bg-red-50 px-4 py-2 rounded-lg"
+                  >
                     <FaTrash />
                     Delete
                   </button>

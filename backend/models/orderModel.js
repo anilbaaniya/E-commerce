@@ -2,6 +2,11 @@ import mongoose from "mongoose";
 
 const orderSchema = new mongoose.Schema(
   {
+    orderId: {
+      type: String,
+      unique: true,
+    },
+
     user: {
       type: mongoose.Schema.ObjectId,
       ref: "User",
@@ -44,7 +49,7 @@ const orderSchema = new mongoose.Schema(
       default: "pending",
     },
 
-    data: {
+    date: {
       type: Date,
       default: Date.now(),
     },

@@ -8,3 +8,21 @@ export const createOrder = async (data) => {
     throw error;
   }
 };
+
+export const getOrders = async () => {
+  try {
+    return axios.get(`/api/v1/order`);
+  } catch (error) {
+    if (error.response) throw error.response;
+    throw error;
+  }
+};
+
+export const getOrder = async (id) => {
+  try {
+    return axios.get(`/api/v1/order/${id}`);
+  } catch (error) {
+    if (error.response) throw error.response;
+    throw error;
+  }
+};

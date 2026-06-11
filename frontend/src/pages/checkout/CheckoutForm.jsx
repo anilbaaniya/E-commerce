@@ -1,7 +1,11 @@
 import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
 import { createOrder } from "../../services/orderService.js";
+import { useNavigate } from "react-router-dom";
 
 export default function CheckoutForm({ items, totalAmount }) {
+  const navigate = useNavigate();
+
   const {
     register,
     handleSubmit,
@@ -21,7 +25,9 @@ export default function CheckoutForm({ items, totalAmount }) {
     // console.log(orderData);
     try {
       const response = await createOrder(orderData);
+      toast.success("Order placed successfully!");
       console.log(response);
+      navigate(`/success/${response.data.data._id}`);
     } catch (error) {
       console.log(error);
     }

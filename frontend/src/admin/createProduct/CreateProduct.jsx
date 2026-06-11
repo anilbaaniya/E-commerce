@@ -4,6 +4,7 @@ import axios from "axios";
 import { getSignatureForUpload } from "../../services/getSignature";
 import { BeatLoader } from "react-spinners";
 import { createProduct } from "../../services/productService";
+import toast from "react-hot-toast";
 const CATEGORY_CONFIG = {
   fashion: {
     male: ["t-shirts", "shirts", "jackets", "jeans"],
@@ -125,7 +126,8 @@ export default function CreateProduct() {
 
       console.log(res);
 
-      console.log("Uploaded successfully");
+      // console.log("Uploaded successfully");
+      toast.success("Product created successfully!");
 
       reset();
     } catch (error) {

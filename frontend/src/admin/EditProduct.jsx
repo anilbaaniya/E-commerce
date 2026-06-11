@@ -1,9 +1,12 @@
 import { useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { getProduct, updateProduct } from "../services/productService";
+import toast from "react-hot-toast";
 
 export default function EditProduct() {
+  const navigate = useNavigate();
+
   const { id } = useParams();
 
   const {
@@ -42,6 +45,8 @@ export default function EditProduct() {
     try {
       const res = await updateProduct(id, data);
       console.log(res);
+      toast.success("Product updated successfully!");
+      navigate("/admin/products");
     } catch (error) {
       console.log(error);
     }

@@ -35,6 +35,17 @@ export default function Header() {
           </button>
         </div>
 
+        {user?.role === "admin" && (
+          <div>
+            <NavLink
+              to="/admin/products"
+              className=" block w-38 text-stone-100 py-2 px-6 text-lg bg-blue-700 rounded-full cursor-pointer hover:bg-blue-600 transition-all duration-200"
+            >
+              Admin Panel
+            </NavLink>
+          </div>
+        )}
+
         {/* Nav Actions */}
         <div className="flex items-center gap-8">
           <div className="flex items-center gap-1">

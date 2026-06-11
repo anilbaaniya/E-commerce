@@ -15,10 +15,15 @@ export default function Login() {
     // console.log(user);
     e.preventDefault();
     const result = await dispatch(loginUser({ email, password }));
+    console.log(result.payload.data);
 
     if (loginUser.fulfilled.match(result)) {
-      toast.success("Login successful!");
-      navigate("/");
+      // toast.success("Login successful!");
+      if (result.payload.data.role === "admin") {
+        navigate("/admin/products");
+      } else {
+        navigate("/");
+      }
     }
   };
   return (

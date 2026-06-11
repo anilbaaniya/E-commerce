@@ -17,7 +17,7 @@ export default function AdminSidebar() {
   };
 
   return (
-    <div className="w-64 p-5 border-r border-stone-300 sticky top-0 h-screen overflow-hidden">
+    <div className="w-64 p-5 border-r border-stone-300 bg-white sticky top-0 h-screen overflow-hidden">
       <h2 className="text-2xl font-bold mb-10">E-Commerce Admin</h2>
 
       <ul className="space-y-3">
@@ -44,6 +44,12 @@ export default function AdminSidebar() {
           <FaSignOutAlt />
           Logout
         </button>
+        <NavLink
+          to="/"
+          className=" block w-40 text-stone-100 py-3 px-8 text-lg bg-blue-700 rounded-lg cursor-pointer hover:bg-blue-600 transition-all duration-200"
+        >
+          User Panel
+        </NavLink>
       </ul>
     </div>
   );

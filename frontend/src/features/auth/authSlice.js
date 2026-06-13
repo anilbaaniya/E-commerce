@@ -147,9 +147,9 @@ const authSlice = createSlice({
         state.loading = true;
         state.error = null;
       })
-      .addCase(logoutUser.fulfilled, (state, action) => {
+      .addCase(logoutUser.fulfilled, (state) => {
         state.loading = false;
-        state.user = action.payload.data;
+        state.user = null;
         state.isAuthenticated = false;
       })
       .addCase(logoutUser.rejected, (state, action) => {
@@ -162,7 +162,9 @@ const authSlice = createSlice({
       })
       .addCase(updateUserProfile.fulfilled, (state, action) => {
         state.loading = false;
-        state.user = action.payload.data;
+        // backend sometimes returns data: { user: updatedUser } or data: updatedUser
+        const payloadData = action.payload && action.payload.data;
+        state.user = payloadData?.user ?? payloadData ?? state.user;
         state.error = null;
       })
       .addCase(updateUserProfile.rejected, (state, action) => {

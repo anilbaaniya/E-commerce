@@ -7,6 +7,7 @@ const filterObj = (obj, ...allowedField) => {
   Object.keys(obj).forEach((el) => {
     if (allowedField.includes(el)) newObj[el] = obj[el];
   });
+  return newObj;
 };
 
 export const getAllUsers = catchAsync(async (req, res, next) => {
@@ -59,7 +60,7 @@ export const updateMe = catchAsync(async (req, res, next) => {
 
   // 3) Update user document
   const updatedUser = await User.findByIdAndUpdate(req.user._id, filteredBody, {
-    returnDocument: after,
+    returnDocument: "after",
     runValidators: true,
   });
 
@@ -72,7 +73,7 @@ export const updateMe = catchAsync(async (req, res, next) => {
 });
 
 export const getMe = catchAsync(async (req, res, next) => {
-  const user = await User.findById(req.user);
+  const user = await User.findById(req.user._id);
   if (!user) {
     return next(new AppError("No user found!", 400));
   }

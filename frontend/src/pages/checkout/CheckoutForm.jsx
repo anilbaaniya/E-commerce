@@ -26,7 +26,6 @@ export default function CheckoutForm({ items, totalAmount }) {
     try {
       const response = await createOrder(orderData);
       toast.success("Order placed successfully!");
-      console.log(response);
       navigate(`/success/${response.data.data._id}`);
     } catch (error) {
       console.log(error);

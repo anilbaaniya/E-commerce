@@ -1,19 +1,44 @@
 import { useForm } from "react-hook-form";
+import { useDispatch } from "react-redux";
+import toast from "react-hot-toast";
+import { updatePassword, getCurrentUser } from "../../features/auth/authSlice";
 
 export default function ChangePassword({ setChanging }) {
+  const dispatch = useDispatch();
   const {
     register,
     handleSubmit,
     reset,
     formState: { errors, isSubmitting },
   } = useForm();
+
+  async function onSubmit(data) {
+    try {
+      await dispatch(
+        updatePassword({
+          currentPassword: data.currentPassword,
+          password: data.password,
+          confirmPassword: data.confirmPassword,
+        }),
+      ).unwrap();
+      // refresh current user
+      await dispatch(getCurrentUser()).unwrap();
+      toast.success("Password updated successfully");
+      setChanging(false);
+      reset();
+    } catch (err) {
+      console.error(err);
+      toast.error(err || "Failed to update password");
+    }
+  }
+
   return (
-    <form className="flex flex-col gap-3">
+    <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-3">
       <div>
         <label htmlFor="name">Current Password</label>
         <input
           {...register("currentPassword", {
-            required: "Name is required.",
+            required: "Current password is required.",
           })}
           className="w-full border border-gray-300 rounded-lg px-4 py-1 text-black bg-white focus:outline-none focus:ring-1 focus:ring-blue-500"
         />
@@ -27,7 +52,7 @@ export default function ChangePassword({ setChanging }) {
         <label htmlFor="name">New Password</label>
         <input
           {...register("password", {
-            required: "Name is required.",
+            required: "New password is required.",
           })}
           className="w-full border border-gray-300 rounded-lg px-4 py-1 text-black bg-white focus:outline-none focus:ring-1 focus:ring-blue-500"
         />
@@ -39,7 +64,7 @@ export default function ChangePassword({ setChanging }) {
         <label htmlFor="name">Confirm Password</label>
         <input
           {...register("confirmPassword", {
-            required: "Name is required.",
+            required: "Confirm password is required.",
           })}
           className="w-full border border-gray-300 rounded-lg px-4 py-1 text-black bg-white focus:outline-none focus:ring-1 focus:ring-blue-500"
         />
@@ -50,14 +75,18 @@ export default function ChangePassword({ setChanging }) {
         )}
       </div>
 
-      <div>
+      <div className="flex gap-3">
         <button
           onClick={() => setChanging(false)}
+          type="button"
           className="border border-stone-200 rounded-xl px-4 py-1"
         >
           Cancel
         </button>
-        <button className=" rounded-xl px-4 py-1 bg-blue-700 text-white">
+        <button
+          type="submit"
+          className=" rounded-xl px-4 py-1 bg-blue-700 text-white"
+        >
           Update
         </button>
       </div>

@@ -61,10 +61,10 @@ export default function Profile() {
 
             <div className="grid grid-cols-2 gap-y-2 text-sm">
               <span className="text-gray-500">Name</span>
-              <span className="text-gray-800 font-medium">Anil</span>
+              <span className="text-gray-800 font-medium">{user.name}</span>
 
               <span className="text-gray-500">Email</span>
-              <span className="text-gray-800 font-medium">anil@gmail.com</span>
+              <span className="text-gray-800 font-medium">{user.email}</span>
             </div>
           </div>
         )}

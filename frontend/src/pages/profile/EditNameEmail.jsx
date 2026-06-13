@@ -1,6 +1,13 @@
 import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
+import { useDispatch } from "react-redux";
+import {
+  updateUserProfile,
+  getCurrentUser,
+} from "../../features/auth/authSlice.js";
 
 export default function EditNameEmail({ setEditing, user }) {
+  const dispatch = useDispatch();
   const {
     register,
     handleSubmit,
@@ -12,8 +19,22 @@ export default function EditNameEmail({ setEditing, user }) {
       email: user.email,
     },
   });
+
+  async function onSubmit(formData) {
+    try {
+      // wait for thunk to complete and throw on error
+      await dispatch(updateUserProfile(formData)).unwrap();
+      // refresh current user from server to ensure auth state stays correct
+      await dispatch(getCurrentUser()).unwrap();
+      toast.success("Profile edited successfully!");
+      setEditing(false);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   return (
-    <form className="flex flex-col gap-3">
+    <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-3">
       <div>
         <label htmlFor="name">Name</label>
         <input
@@ -46,7 +67,10 @@ export default function EditNameEmail({ setEditing, user }) {
         >
           Cancel
         </button>
-        <button className=" rounded-xl px-4 py-1 bg-blue-700 text-white cursor-pointer">
+        <button
+          type="submit"
+          className=" rounded-xl px-4 py-1 bg-blue-700 text-white cursor-pointer"
+        >
           Update
         </button>
       </div>

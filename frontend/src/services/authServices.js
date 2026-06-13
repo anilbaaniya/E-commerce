@@ -46,3 +46,27 @@ export const getMe = async () => {
     throw error;
   }
 };
+
+export const updateMe = async (data) => {
+  try {
+    const response = await axios.patch("/api/v1/users/updateMe", data, {
+      withCredentials: true,
+    });
+    return response;
+  } catch (error) {
+    if (error.response) throw error.response;
+    throw error;
+  }
+};
+
+export const updateMyPassword = async (data) => {
+  try {
+    const response = await axios.patch("/api/v1/users/updateMyPassword", data, {
+      withCredentials: true,
+    });
+    return response;
+  } catch (error) {
+    if (error.response) throw error.response;
+    throw error;
+  }
+};

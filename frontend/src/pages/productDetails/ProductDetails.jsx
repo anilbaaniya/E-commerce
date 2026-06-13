@@ -9,7 +9,6 @@ import { getProduct } from "../../services/productService";
 import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../../features/auth/cartSlice";
-import SizeSelect from "./SizeSelect";
 import QuantitySelect from "./QuantitySelect";
 import Price from "./Price";
 import ProductBadge from "./ProductBadge";
@@ -19,7 +18,6 @@ export default function ProductDetails() {
   const { id } = useParams();
   const navigate = useNavigate();
 
-  const [selectedSize, setSelectedSize] = useState("M");
   const [quantity, setQuantity] = useState(1);
   const [wished, setWished] = useState(false);
   const [added, setAdded] = useState(false);
@@ -36,8 +34,7 @@ export default function ProductDetails() {
     getProducts();
   }, [id]);
 
-  const { name, image, price, originalPrice, description, discountPercent } =
-    product;
+  const { name, image, originalPrice, description, discountPercent } = product;
 
   const handleAddToCart = async () => {
     try {
@@ -53,12 +50,12 @@ export default function ProductDetails() {
     <div className="min-h-screen bg-stone-50 font-sans">
       {/* Top nav breadcrumb */}
       <div className="max-w-5xl mx-auto  pt-6 pb-2 flex items-center gap-8 text-sm text-gray-400">
-        <button className="flex items-center gap-1 hover:text-blue-500 transition text-xl text-blue-600 font-semibold">
+        <div className="flex items-center gap-1 hover:text-blue-500 transition text-xl text-blue-600 font-semibold">
           <IoArrowBackOutline />
           <button onClick={() => navigate(-1)} className="cursor-pointer">
             Back
           </button>
-        </button>
+        </div>
       </div>
 
       <div className="max-w-5xl mx-auto px-4 py-6 grid grid-cols-1 md:grid-cols-2 gap-10">
@@ -87,7 +84,10 @@ export default function ProductDetails() {
           </div>
 
           {/* Price */}
-          <Price price={price} originalPrice={originalPrice} />
+          <Price
+            discountPercent={discountPercent}
+            originalPrice={originalPrice}
+          />
 
           <hr className="border-stone-200" />
 

@@ -1,13 +1,20 @@
 import { useState } from "react";
 import { IoCartOutline } from "react-icons/io5";
+import { MdFavoriteBorder, MdFavorite } from "react-icons/md";
 import { Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../features/auth/cartSlice";
+import {
+  addToWishlist,
+  removeWishlistItem,
+} from "../features/auth/wishlistSlice";
 import toast from "react-hot-toast";
 
 export default function ProductCard({ product }) {
   const dispatch = useDispatch();
   const [added, setAdded] = useState(false);
+  const wishlistItems = useSelector((state) => state.wishlist.items);
+  const isInWishlist = wishlistItems.some((item) => item._id === product._id);
   const { name, image, originalPrice, discountPercent } = product;
   const price = Math.ceil(
     originalPrice - (originalPrice * discountPercent) / 100,
@@ -24,8 +31,29 @@ export default function ProductCard({ product }) {
       toast.success("Product added to Cart");
       setTimeout(() => setAdded(false), 1800);
     } catch (error) {
-      toast.success("Failed to add to cart");
+      toast.error("Failed to add to cart");
       console.error("Add to cart failed:", error);
+    }
+  };
+
+  const handleWishlistToggle = async (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+    try {
+      if (isInWishlist) {
+        await dispatch(removeWishlistItem(product._id)).unwrap();
+        toast.success("Removed from Wishlist");
+      } else {
+        await dispatch(addToWishlist(product._id)).unwrap();
+        toast.success("Added to Wishlist");
+      }
+    } catch (error) {
+      toast.error(
+        isInWishlist
+          ? "Failed to remove from wishlist"
+          : "Failed to add to wishlist",
+      );
+      console.error("Wishlist operation failed:", error);
     }
   };
 
@@ -33,11 +61,23 @@ export default function ProductCard({ product }) {
     <Link to={`/products/${product._id}`}>
       <div>
         <div className="bg-white border border-stone-100 rounded-lg p-4 shadow-sm">
-          <img
-            src={image}
-            alt={name}
-            className="w-full h-48 object-cover rounded-md"
-          />
+          <div className="relative">
+            <img
+              src={image}
+              alt={name}
+              className="w-full h-48 object-contain rounded-md"
+            />
+            <button
+              onClick={handleWishlistToggle}
+              className="absolute top-2 right-2 bg-white rounded-full p-2 shadow-md hover:shadow-lg transition"
+            >
+              {isInWishlist ? (
+                <MdFavorite className="text-blue-500 text-xl" />
+              ) : (
+                <MdFavoriteBorder className="text-gray-400 text-xl hover:text-blue-500" />
+              )}
+            </button>
+          </div>
 
           <div className="mt-3 flex flex-col gap-1">
             <span className="text-gray-800 font-medium">{name}</span>

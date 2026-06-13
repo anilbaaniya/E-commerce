@@ -8,7 +8,7 @@ export default function Image({ image, discountPercent, wished, setWished }) {
         <img
           src={image}
           alt="Casual Shirt"
-          className="w-full h-105 object-cover transition-all duration-300"
+          className="w-full h-105 object-contain transition-all duration-300"
         />
         {/* Discount badge */}
         <span className="absolute top-3 left-3 bg-green-600 text-white text-xs font-semibold px-2 py-1 rounded-md shadow">

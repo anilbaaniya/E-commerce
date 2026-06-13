@@ -1,4 +1,5 @@
-export default function Price({ price, originalPrice }) {
+export default function Price({ discountPercent, originalPrice }) {
+  const price = originalPrice - (originalPrice * discountPercent) / 100;
   return (
     <div className="flex items-center gap-3">
       <span className="text-2xl font-bold text-green-600">

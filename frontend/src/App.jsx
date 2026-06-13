@@ -25,6 +25,8 @@ import OrderDetails from "./admin/orders/OrderDetails";
 import EditProduct from "./admin/EditProduct";
 import SuccessPage from "./pages/SuccessPage";
 import AdminProtectedRoute from "./admin/AdminProtectedRoute";
+import Wishlist from "./pages/wishlist/Wishlist";
+import Profile from "./pages/profile/Profile";
 
 const router = createBrowserRouter([
   {
@@ -112,6 +114,10 @@ const router = createBrowserRouter([
         element: <Trending />,
       },
       {
+        path: "/profile",
+        element: <Profile />,
+      },
+      {
         path: "contact",
         element: <ContactUs />,
       },
@@ -120,6 +126,7 @@ const router = createBrowserRouter([
         element: <ProtectedLayout />,
         children: [
           { path: "cart", element: <Cart /> },
+          { path: "wishlist", element: <Wishlist /> },
           { path: "emptyCart", element: <EmptyCart /> },
         ],
       },

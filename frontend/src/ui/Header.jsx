@@ -50,14 +50,17 @@ export default function Header() {
         <div className="flex items-center gap-8">
           <div className="flex items-center gap-1">
             {/* Wishlist */}
-            <button className="flex flex-col items-center gap-0.5 px-3 py-2 rounded-xl hover:bg-gray-50 group transition-colors duration-200 cursor-pointer">
+            <NavLink
+              to="wishlist"
+              className="flex flex-col items-center gap-0.5 px-3 py-2 rounded-xl hover:bg-gray-50 group transition-colors duration-200 cursor-pointer"
+            >
               <div className="relative">
                 <CiHeart className="text-2xl text-gray-700 group-hover:text-blue-600 transition-colors duration-200" />
               </div>
               <span className="text-xs font-medium text-gray-600 group-hover:text-blue-600 transition-colors duration-200">
                 Wishlist
               </span>
-            </button>
+            </NavLink>
 
             {/* Cart */}
             <NavLink

@@ -10,6 +10,7 @@ import { globalErrorHandler } from "./controllers/errorController.js";
 import { cartRoute } from "./routes/cartRoute.js";
 import { signRouter } from "./routes/signatureRoute.js";
 import { orderRoute } from "./routes/orderRoute.js";
+import { wishlistRoute } from "./routes/wishlistRoute.js";
 
 export const app = express();
 
@@ -24,6 +25,7 @@ if (process.env.NODE_ENV === "development") {
 app.use("/api/v1/users", userRoute);
 app.use("/api/v1/products", productRoute);
 app.use("/api/v1/cart", cartRoute);
+app.use("/api/v1/wishlist", wishlistRoute);
 app.use("/api/v1/order", orderRoute);
 
 app.use("/api/sign-upload", signRouter);

@@ -75,7 +75,7 @@ export default function AdminProduct() {
 
                 <td className="p-4 text-black">{product.category}</td>
 
-                <td className="p-4 text-black">{product.price}</td>
+                <td className="p-4 text-black">{product.originalPrice}</td>
 
                 <td className="p-4 text-black">{product.stock}</td>
 

@@ -31,7 +31,7 @@ export default function ProductCard({ product }) {
       toast.success("Product added to Cart");
       setTimeout(() => setAdded(false), 1800);
     } catch (error) {
-      toast.error("Failed to add to cart");
+      toast.error(error);
       console.error("Add to cart failed:", error);
     }
   };

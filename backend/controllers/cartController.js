@@ -42,6 +42,7 @@ export const addToCart = catchAsync(async (req, res, next) => {
 
 export const updateCartItem = catchAsync(async (req, res, next) => {
   const { quantity } = req.body;
+  console.log(quantity);
 
   const user = await User.findById(req.user._id);
 
@@ -53,15 +54,16 @@ export const updateCartItem = catchAsync(async (req, res, next) => {
     return next(new AppError("No product found with this id!", 404));
   }
 
-  if (product.quantity <= 0) {
+  // if requested quantity is less than or equal to 0, remove the item
+  if (Number(quantity) <= 0) {
     user.cart = user.cart.filter(
       (item) => item.product.toString() !== req.params.productId,
     );
   } else {
-    product.quantity = quantity;
+    product.quantity = Number(quantity);
   }
 
-  await user.save();
+  await user.save({ validateBeforeSave: false });
   await user.populate("cart.product");
 
   res.status(200).json({

@@ -23,14 +23,18 @@ export const addToCart = async (productId, quantity = 1) => {
 };
 
 export const updateCartItem = async (productId, quantity) => {
+  if (quantity === undefined || isNaN(quantity)) {
+    throw new Error("Invalid quantity");
+  }
+
   try {
     return await axios.patch(
       `/api/v1/cart/${productId}`,
-      { quantity },
+      { quantity: Number(quantity) },
       { withCredentials: true },
     );
   } catch (error) {
-    if (error.response) throw error.response;
+    if (error?.response) throw error.response;
     throw error;
   }
 };

@@ -43,7 +43,7 @@ const SuccessPage = () => {
           <h1 className="text-3xl font-bold text-gray-800">Order Confirmed</h1>
 
           <p className="text-gray-600 mt-2 text-lg">
-            Thank you, {order?.shippingInfo.fullName}!
+            Thank you, {order?.shippingInfo?.fullName}!
           </p>
 
           <p className="text-gray-500 mt-1">

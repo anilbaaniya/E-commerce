@@ -28,7 +28,8 @@ export default function SideMenu({ open, setOpen }) {
             <h3 className="font-semibold text-gray-700">Men Clothing</h3>
 
             <NavLink
-              to="/products?gender=male&subCategory=tshirts"
+              // onClick={() => setOpen(false)}
+              to="/products?gender=male&subCategory=t-shirts"
               className="ml-3 hover:text-blue-700"
             >
               T-Shirt
@@ -52,14 +53,7 @@ export default function SideMenu({ open, setOpen }) {
               to="/products?gender=male&subCategory=jeans"
               className="ml-3 hover:text-blue-700"
             >
-              Jeans
-            </NavLink>
-
-            <NavLink
-              to="/products?gender=male&subCategory=pants"
-              className="ml-3 hover:text-blue-700"
-            >
-              Pant
+              Jeans Pant
             </NavLink>
 
             <NavLink
@@ -75,7 +69,7 @@ export default function SideMenu({ open, setOpen }) {
             <h3 className="font-semibold text-gray-700">Women Clothing</h3>
 
             <NavLink
-              to="/products?gender=female&subCategory=tshirts"
+              to="/products?gender=female&subCategory=t-shirts"
               className="ml-3 hover:text-blue-700"
             >
               T-Shirt
@@ -89,7 +83,7 @@ export default function SideMenu({ open, setOpen }) {
             </NavLink>
 
             <NavLink
-              to="/products?gender=female&subCategory=jeansPants"
+              to="/products?gender=female&subCategory=jeans"
               className="ml-3 hover:text-blue-700"
             >
               Jeans Pants

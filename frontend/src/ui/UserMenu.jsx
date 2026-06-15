@@ -28,11 +28,11 @@ export default function UserMenu({ user }) {
   };
 
   return (
-    <div className="relative inline-block">
+    <div className="relative inline-block ">
       {/* User Button */}
       <button
         onClick={toggleMenu}
-        className="flex items-center gap-2 text-lg select-none"
+        className="flex items-center gap-2 text-lg select-none cursor-pointer"
       >
         <FaUserCircle />
         <span>{user?.name?.toUpperCase()}</span>

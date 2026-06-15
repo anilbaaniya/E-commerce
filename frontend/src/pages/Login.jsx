@@ -2,6 +2,7 @@ import { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { loginUser } from "../features/auth/authSlice";
+import { TailSpin } from "react-loader-spinner";
 import toast from "react-hot-toast";
 
 export default function Login() {
@@ -18,7 +19,7 @@ export default function Login() {
     console.log(result.payload.data);
 
     if (loginUser.fulfilled.match(result)) {
-      // toast.success("Login successful!");
+      toast.success("Login successful!");
       if (result.payload.data.role === "admin") {
         navigate("/admin/products");
       } else {
@@ -27,7 +28,7 @@ export default function Login() {
     }
   };
   return (
-    <div className="min-h-screen flex items-center justify-center bg-white text-black">
+    <div className="min-h-screen flex flex-col items-center justify-center bg-white text-black">
       <div className="w-full max-w-md p-8 border border-gray-200 rounded-lg shadow-sm">
         {/* Title */}
         <h2 className="text-2xl font-bold text-center mb-6">
@@ -82,7 +83,7 @@ export default function Login() {
             type="submit"
             className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-md transition"
           >
-            Login
+            {loading ? "Logging in..." : "Login"}
           </button>
         </form>
 
@@ -94,6 +95,9 @@ export default function Login() {
           </NavLink>
         </p>
       </div>
+      {loading && (
+        <TailSpin height="60" width="60" color="#2563eb" ariaLabel="loading" />
+      )}
     </div>
   );
 }

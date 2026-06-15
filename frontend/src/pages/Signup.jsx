@@ -1,6 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useNavigate } from "react-router-dom";
 import { signupUser } from "../features/auth/authSlice";
+import { TailSpin } from "react-loader-spinner";
 import { useState } from "react";
 
 export default function Signup() {
@@ -102,7 +103,7 @@ export default function Signup() {
             type="submit"
             className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-md transition"
           >
-            Sign Up
+            {loading ? "Creating account..." : "Sign Up"}
           </button>
         </form>
 
@@ -113,6 +114,9 @@ export default function Signup() {
           </NavLink>
         </p>
       </div>
+      {loading && (
+        <TailSpin height="60" width="60" color="#2563eb" ariaLabel="loading" />
+      )}
     </div>
   );
 }

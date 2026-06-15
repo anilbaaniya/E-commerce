@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { createOrder } from "../../services/orderService.js";
-import { useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 export default function CheckoutForm({ items, totalAmount }) {
   const navigate = useNavigate();
@@ -142,9 +142,17 @@ export default function CheckoutForm({ items, totalAmount }) {
       </div>
 
       {/* Submit Button */}
-      <button type="submit" className="bg-black text-white py-2 px-4 text-sm">
-        Submit
-      </button>
+      <div className="flex gap-4">
+        <NavLink to="/" className=" border border-stone-300 py-2 px-8 text-sm">
+          Cancel
+        </NavLink>
+        <button
+          type="submit"
+          className="bg-blue-600 text-white py-2 px-8 text-sm"
+        >
+          Submit
+        </button>
+      </div>
     </form>
   );
 }

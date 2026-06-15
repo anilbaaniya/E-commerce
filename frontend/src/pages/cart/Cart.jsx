@@ -8,17 +8,31 @@ import {
   updateCartItem,
   removeCartItem,
 } from "../../features/auth/cartSlice";
-import { useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 
 const Cart = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { items, loading } = useSelector((state) => state.cart);
+
+  const { items = [], loading } = useSelector((state) => state.cart);
+  // console.log(items);
 
   useEffect(() => {
     dispatch(fetchCart());
   }, [dispatch]);
+
+  const discountPrice = items.map((item) => {
+    {
+      return (
+        (item.product?.originalPrice -
+          (item.product?.originalPrice * item.product?.discountPercent) / 100) *
+        item.quantity
+      );
+    }
+  });
+
+  const total = discountPrice.reduce((acc, item) => acc + item, 0);
 
   const handleDecrease = (productId, quantity) => {
     if (quantity <= 1) {
@@ -41,21 +55,6 @@ const Cart = () => {
     return <EmptyCart />;
   }
 
-  const discountPrice = items.map((item) => {
-    {
-      return (
-        (item.product.originalPrice -
-          (item.product.originalPrice * item.product.discountPercent) / 100) *
-        item.quantity
-      );
-    }
-  });
-
-  const subtotal = discountPrice.reduce((acc, item) => acc + item, 0);
-
-  const shipping = 0;
-  const total = subtotal + shipping;
-
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Main */}
@@ -73,7 +72,7 @@ const Cart = () => {
             {items.map((item) => (
               <CartItem
                 item={item}
-                key={item.product?._id || item.id}
+                key={item.product?._id || item.product || item._id || item.id}
                 onDecrease={handleDecrease}
                 onIncrease={handleIncrease}
                 onRemove={handleRemove}
@@ -99,9 +98,12 @@ const Cart = () => {
           </div>
 
           {/* Continue Shopping */}
-          <button className="mt-8 border px-6 py-3 rounded-xl hover:bg-gray-100 transition">
+          <NavLink
+            to="/"
+            className="mt-8 border px-6 py-3 rounded-xl hover:bg-gray-100 transition"
+          >
             ← Continue Shopping
-          </button>
+          </NavLink>
         </div>
 
         {/* Right Side */}

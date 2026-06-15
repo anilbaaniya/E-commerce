@@ -17,6 +17,7 @@ export const fetchCart = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       const response = await getCartService();
+      // console.log(response.data.data);
       return response.data.data;
     } catch (error) {
       return rejectWithValue(
@@ -44,11 +45,17 @@ export const updateCartItem = createAsyncThunk(
   "cart/update",
   async ({ productId, quantity }, { rejectWithValue }) => {
     try {
+      console.log(quantity);
       const response = await updateCartItemService(productId, quantity);
+      console.log(response);
       return response.data.data;
     } catch (error) {
+      console.error("updateCartItem error", error);
       return rejectWithValue(
-        error.data?.message || error.message || "Failed to update cart item",
+        error?.response?.data?.message ||
+          error?.data?.message ||
+          error?.message ||
+          "Failed to update cart item",
       );
     }
   },
@@ -107,6 +114,7 @@ const cartSlice = createSlice({
         state.error = null;
       })
       .addCase(updateCartItem.fulfilled, (state, action) => {
+        console.log(action.payload);
         state.loading = false;
         state.items = action.payload;
       })
@@ -120,9 +128,10 @@ const cartSlice = createSlice({
       })
       .addCase(removeCartItem.fulfilled, (state, action) => {
         state.loading = false;
-        state.items = state.items.filter(
-          (item) => item.product?._id !== action.payload,
-        );
+        state.items = state.items.filter((item) => {
+          const cartProductId = item.product?._id || item.product || item._id;
+          return cartProductId !== action.payload;
+        });
       })
       .addCase(removeCartItem.rejected, (state, action) => {
         state.loading = false;

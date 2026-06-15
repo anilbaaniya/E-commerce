@@ -79,7 +79,7 @@ export default function CheckoutPage() {
               {items.map((item) => (
                 <div key={item._id} className="flex gap-3 py-3.5 items-start">
                   <div className="w-14 h-14 rounded-xl bg-gray-50 flex items-center justify-center shrink-0">
-                    {/* {item.product.image} */}
+                    <img src={item.product.image} alt="" />
                   </div>
                   <div className="flex-1">
                     <p className="text-sm font-semibold text-gray-900">

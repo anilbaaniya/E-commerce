@@ -13,6 +13,7 @@ import QuantitySelect from "./QuantitySelect";
 import Price from "./Price";
 import ProductBadge from "./ProductBadge";
 import Image from "./Image";
+import toast from "react-hot-toast";
 
 export default function ProductDetails() {
   const { id } = useParams();
@@ -29,7 +30,7 @@ export default function ProductDetails() {
     async function getProducts() {
       const response = await getProduct(id);
       setProduct(response.data.data);
-      console.log(response.data.data);
+      // console.log(response.data.data);
     }
     getProducts();
   }, [id]);
@@ -42,6 +43,7 @@ export default function ProductDetails() {
       setAdded(true);
       setTimeout(() => setAdded(false), 1800);
     } catch (error) {
+      toast.error(error);
       console.error("Add to cart failed:", error);
     }
   };
@@ -110,9 +112,6 @@ export default function ProductDetails() {
             >
               <IoCartOutline className="text-xl" />
               <span>{added ? "Added!" : "Add to Cart"}</span>
-            </button>
-            <button className="flex-1 py-3 rounded-md border-2 border-blue-600 text-blue-600 font-semibold hover:bg-blue-50 transition">
-              Buy Now
             </button>
           </div>
 

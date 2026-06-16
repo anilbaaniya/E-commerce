@@ -14,7 +14,17 @@ import { wishlistRoute } from "./routes/wishlistRoute.js";
 
 export const app = express();
 
-app.use(cors());
+const allowedOrigins = [
+  "http://localhost:5173",
+  "https://your-vercel-app.vercel.app",
+];
+
+app.use(
+  cors({
+    origin: allowedOrigins,
+    credentials: true,
+  }),
+);
 app.use(express.json());
 app.use(cookieParser());
 
@@ -31,7 +41,7 @@ app.use("/api/v1/order", orderRoute);
 app.use("/api/sign-upload", signRouter);
 
 app.use((req, res, next) => {
-  next(new AppError(`Cannot find ${req.originalUrl} on this server.`, 400));
+  next(new AppError(`Cannot find ${req.originalUrl} on this server.`, 404));
 });
 
 app.use(globalErrorHandler);

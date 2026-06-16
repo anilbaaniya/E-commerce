@@ -4,6 +4,8 @@ import { BiLogOut } from "react-icons/bi";
 import { IoClose } from "react-icons/io5";
 import { useDispatch } from "react-redux";
 import { logoutUser } from "../features/auth/authSlice";
+import { RiArrowDropDownFill } from "react-icons/ri";
+
 import toast from "react-hot-toast";
 import Profile from "../pages/profile/Profile";
 
@@ -36,6 +38,7 @@ export default function UserMenu({ user }) {
       >
         <FaUserCircle />
         <span>{user?.name?.toUpperCase()}</span>
+        <RiArrowDropDownFill />
       </button>
 
       {/* Dropdown */}

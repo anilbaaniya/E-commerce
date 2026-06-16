@@ -16,7 +16,7 @@ export default function ProductCard({ product }) {
   const wishlistItems = useSelector((state) => state.wishlist.items);
   const isInWishlist = wishlistItems.some((item) => item._id === product._id);
   const { name, image, originalPrice, discountPercent } = product;
-  const price = Math.ceil(
+  const price = Math.floor(
     originalPrice - (originalPrice * discountPercent) / 100,
   );
 

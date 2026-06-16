@@ -49,7 +49,7 @@ const ProductList = () => {
       : "Women Clothing"
     : queryCategory
       ? queryCategory === "stationery"
-        ? "Books & Stationery"
+        ? "Stationery"
         : formatLabel(queryCategory)
       : category
         ? formatLabel(category)
@@ -78,9 +78,7 @@ const ProductList = () => {
 
   if (qCategory) {
     const catLabel =
-      qCategory === "stationery"
-        ? "Books & Stationery"
-        : formatLabel(qCategory);
+      qCategory === "stationery" ? "Stationery" : formatLabel(qCategory);
     const params = new URLSearchParams();
     if (qGender) params.set("gender", qGender);
     params.set("category", qCategory);

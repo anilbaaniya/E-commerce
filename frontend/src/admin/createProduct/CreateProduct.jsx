@@ -7,7 +7,7 @@ import { createProduct } from "../../services/productService";
 import toast from "react-hot-toast";
 const CATEGORY_CONFIG = {
   fashion: {
-    male: ["t-shirts", "shirts", "jackets", "jeans"],
+    male: ["t-shirts", "shirts", "jackets", "jeans", "trousers"],
     female: ["t-shirts", "jackets", "jeans", "saree", "kurtha"],
   },
   electronics: null,

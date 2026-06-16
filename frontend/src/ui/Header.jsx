@@ -10,7 +10,8 @@ import UserMenu from "./UserMenu";
 
 export default function Header() {
   const { user } = useSelector((state) => state.auth);
-
+  const { items } = useSelector((state) => state.cart);
+  console.log(items);
   return (
     <header className="sticky top-0 z-50 bg-white ">
       <div className=" mx-auto py-2 flex items-center justify-between gap-6 border-b border-gray-200 ">
@@ -69,9 +70,9 @@ export default function Header() {
             >
               <div className="relative">
                 <IoCartOutline className="text-2xl text-gray-700 group-hover:text-blue-600 transition-colors duration-200" />
-                <span className="absolute -top-1.5 -right-1.5 bg-blue-600 text-white text-[10px] font-bold rounded-full w-4 h-4 flex items-center justify-center leading-none">
-                  3
-                </span>
+                {/* <span className="absolute -top-1.5 -right-1.5 bg-blue-600 text-white text-[10px] font-bold rounded-full w-4 h-4 flex items-center justify-center leading-none">
+                  {items.length}
+                </span> */}
               </div>
               <span className="text-xs font-medium text-gray-600 group-hover:text-blue-600 transition-colors duration-200">
                 Cart

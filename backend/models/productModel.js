@@ -37,8 +37,8 @@ const productSchema = new mongoose.Schema(
       max: 5,
     },
     stock: {
-      type: Boolean,
-      default: true,
+      type: Number,
+      default: 10,
     },
     discountPercent: {
       type: Number,

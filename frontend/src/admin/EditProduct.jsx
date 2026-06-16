@@ -187,9 +187,9 @@ export default function EditProduct() {
                   {...register("category")}
                   className="w-full border p-2 rounded-md mt-1"
                 >
-                  <option value="male">Fashion</option>
-                  <option value="female">Electronics</option>
-                  <option value="unisex">Stationery</option>
+                  <option value="fashion">Fashion</option>
+                  <option value="electronics">Electronics</option>
+                  <option value="stationery">Stationery</option>
                 </select>
               </div>
               <div>

@@ -16,7 +16,7 @@ export const app = express();
 
 const allowedOrigins = [
   "http://localhost:5173",
-  "https://your-vercel-app.vercel.app",
+  "e-commerce-seven-theta-58.vercel.app",
 ];
 
 app.use(

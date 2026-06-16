@@ -3,7 +3,7 @@ const API = import.meta.env.VITE_API_URL || "";
 
 export const createUser = async (userData) => {
   try {
-    return await axios.post(`/api/v1/users/signup`, userData, {
+    return await axios.post(`${API}/api/v1/users/signup`, userData, {
       withCredentials: true,
     });
   } catch (error) {
@@ -14,7 +14,7 @@ export const createUser = async (userData) => {
 
 export const login = async (userData) => {
   try {
-    return await axios.post("/api/v1/users/login", userData, {
+    return await axios.post(`${API}/api/v1/users/login`, userData, {
       withCredentials: true,
     });
   } catch (error) {
@@ -26,7 +26,7 @@ export const login = async (userData) => {
 export const logout = async () => {
   try {
     return await axios.post(
-      "/api/v1/users/logout",
+      `${API}/api/v1/users/logout`,
       {},
       { withCredentials: true },
     );
@@ -38,7 +38,7 @@ export const logout = async () => {
 
 export const getMe = async () => {
   try {
-    const response = await axios.get("/api/v1/users/getMe", {
+    const response = await axios.get(`${API}/api/v1/users/getMe`, {
       withCredentials: true,
     });
     return response;
@@ -50,7 +50,7 @@ export const getMe = async () => {
 
 export const updateMe = async (data) => {
   try {
-    const response = await axios.patch("/api/v1/users/updateMe", data, {
+    const response = await axios.patch(`${API}/api/v1/users/updateMe`, data, {
       withCredentials: true,
     });
     return response;
@@ -62,9 +62,13 @@ export const updateMe = async (data) => {
 
 export const updateMyPassword = async (data) => {
   try {
-    const response = await axios.patch("/api/v1/users/updateMyPassword", data, {
-      withCredentials: true,
-    });
+    const response = await axios.patch(
+      `${API}/api/v1/users/updateMyPassword`,
+      data,
+      {
+        withCredentials: true,
+      },
+    );
     return response;
   } catch (error) {
     if (error.response) throw error.response;
@@ -75,9 +79,13 @@ export const updateMyPassword = async (data) => {
 export const forgotPassword = async (data) => {
   console.log(data);
   try {
-    const response = await axios.post("/api/v1/users/forgotPassword", data, {
-      withCredentials: true,
-    });
+    const response = await axios.post(
+      `${API}/api/v1/users/forgotPassword`,
+      data,
+      {
+        withCredentials: true,
+      },
+    );
     return response;
   } catch (error) {
     if (error.response) throw error.response.data.message;
@@ -88,7 +96,7 @@ export const resetPassword = async (data, token) => {
   console.log(data);
   try {
     const response = await axios.patch(
-      `/api/v1/users/resetPassword/${token}`,
+      `${API}/api/v1/users/resetPassword/${token}`,
       data,
       {
         withCredentials: true,

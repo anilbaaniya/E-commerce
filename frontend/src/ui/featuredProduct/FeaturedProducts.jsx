@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { getFeaturedProducts } from "../../services/productService";
 import ProductCard from "../ProductCard";
+import Breadcrumb from "../Breadcrumb";
 
 export default function FeaturedProducts() {
   const [products, setProducts] = useState([]);
@@ -14,14 +15,22 @@ export default function FeaturedProducts() {
     getProducts();
   }, []);
 
-  return (
-    <section className=" py-10 px-5 ">
-      <div>
-        <h2 className="text-3xl font-bold text-center text-gray-800 mb-10">
-          Featured Products
-        </h2>
+  const title = "Featured Products";
+  const description = "Hand-picked selections showcasing top-quality items.";
+  const breadcrumbItems = [
+    { label: "Home", to: "/" },
+    { label: "Products", to: "/products" },
+    { label: title },
+  ];
 
-        {/* <div className="grid grid-cols-[repeat(auto-fit,minmax(220px,220px))] gap-4 justify-center"> */}
+  return (
+    <section className=" py-2 px-5 ">
+      <div className="mx-auto max-w-7xl">
+        <Breadcrumb
+          items={breadcrumbItems}
+          title={title}
+          description={description}
+        />
         <div className="grid grid-cols-4 gap-8 justify-center w-325 mx-auto">
           {products.map((product) => (
             <div

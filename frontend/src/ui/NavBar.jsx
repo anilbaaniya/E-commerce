@@ -40,12 +40,6 @@ export default function NavBar() {
           >
             Trending
           </NavLink>
-          <NavLink
-            to="contact"
-            className="hover:-translate-y-1 transition-all duration-200 hover:text-blue-700 "
-          >
-            Contact Us
-          </NavLink>
         </div>
       </nav>
 

@@ -38,7 +38,7 @@ export default function WishlistItem({ item, onRemove }) {
           <img
             src={image}
             alt={name}
-            className="w-full h-full object-cover hover:scale-110 transition duration-300"
+            className="w-full h-full object-contain hover:scale-110 transition duration-300"
           />
 
           {/* Discount Badge */}

@@ -70,3 +70,32 @@ export const updateMyPassword = async (data) => {
     throw error;
   }
 };
+
+export const forgotPassword = async (data) => {
+  console.log(data);
+  try {
+    const response = await axios.post("/api/v1/users/forgotPassword", data, {
+      withCredentials: true,
+    });
+    return response;
+  } catch (error) {
+    if (error.response) throw error.response.data.message;
+    throw error;
+  }
+};
+export const resetPassword = async (data, token) => {
+  console.log(data);
+  try {
+    const response = await axios.patch(
+      `/api/v1/users/resetPassword/${token}`,
+      data,
+      {
+        withCredentials: true,
+      },
+    );
+    return response;
+  } catch (error) {
+    if (error.response) throw error.response.data.message;
+    throw error;
+  }
+};

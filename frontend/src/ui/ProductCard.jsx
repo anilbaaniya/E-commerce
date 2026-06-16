@@ -67,6 +67,9 @@ export default function ProductCard({ product }) {
               alt={name}
               className="w-full h-48 object-contain rounded-md"
             />
+            <span className="absolute top-0 left-0 bg-green-600 text-white text-xs font-semibold px-2 py-1 rounded-md shadow">
+              {`${discountPercent}%`} OFF
+            </span>
             <button
               onClick={handleWishlistToggle}
               className="absolute top-2 right-2 bg-white rounded-full p-2 shadow-md hover:shadow-lg transition"

@@ -3,7 +3,8 @@ import { catchAsync } from "../utils/catchAsync.js";
 import { User } from "../models/userModel.js";
 import jwt, { decode } from "jsonwebtoken";
 import { AppError } from "../utils/appError.js";
-import { sendEmail } from "../utils/email.js";
+// import { sendEmail } from "../utils/email.js";
+import { sendEmail } from "../utils/resendEmail.js";
 
 const signInToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET, {
@@ -136,9 +137,31 @@ export const forgotPassword = catchAsync(async (req, res, next) => {
   await user.save({ validateBeforeSave: false });
 
   // 3) Send it to user's email
-  const resetUrl = `${req.protocol}://${req.get("host")}/api/v1/users/resetPassword/${resetToken}`;
-  const message = `Forgot your password? Submit a PATCH request with your new password and confirm password to ${resetUrl}.\n If you didn't forgot your password simply ignore this email!`;
+  const resetUrl = `http://localhost:5173/resetPassword/${resetToken}`;
 
+  const message = `
+  <div style="font-family: Arial, sans-serif; line-height: 1.6;">
+    <h2>Password Reset Request</h2>
+
+    <p>We received a request to reset your password.</p>
+
+    <p>This link is valid for <b>10 minutes</b>.</p>
+
+    <a href="${resetUrl}" 
+       style="display:inline-block;padding:12px 20px;background:#4f46e5;color:#fff;text-decoration:none;border-radius:6px;">
+      Reset Password
+    </a>
+
+    <p style="margin-top:20px;">
+      If you did not request this, you can safely ignore this email.
+    </p>
+
+    <hr />
+    <small>ShopEase Security Team</small>
+  </div>
+`;
+
+  console.log(user.email);
   try {
     await sendEmail({
       to: user.email,

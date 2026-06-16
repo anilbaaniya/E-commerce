@@ -100,7 +100,7 @@ const Cart = () => {
           {/* Continue Shopping */}
           <NavLink
             to="/"
-            className="mt-8 border px-6 py-3 rounded-xl hover:bg-gray-100 transition"
+            className="mt-6 inline-block border px-6 py-2 rounded-xl hover:bg-gray-100 transition"
           >
             ← Continue Shopping
           </NavLink>

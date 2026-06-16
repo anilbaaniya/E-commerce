@@ -1,14 +1,10 @@
 import { Link } from "react-router-dom";
-import {
-  FaFacebookF,
-  FaInstagram,
-  FaYoutube,
-  FaMapMarkerAlt,
-  FaPhoneAlt,
-  FaEnvelope,
-} from "react-icons/fa";
+import { FaMapMarkerAlt, FaPhoneAlt, FaEnvelope } from "react-icons/fa";
+import { useSelector } from "react-redux";
 
 export default function Footer() {
+  const { user } = useSelector((state) => state.auth);
+
   return (
     <footer className="bg-stone-900 text-stone-300 ">
       <div className="max-w-7xl mx-auto  py-10 ">
@@ -64,22 +60,26 @@ export default function Footer() {
           <div>
             <h3 className="mb-4 font-semibold text-white">My Account</h3>
             <ul className="space-y-2 text-sm">
-              <li>
-                <Link
-                  to="/login"
-                  className="hover:text-blue-300 transition-all duration-200"
-                >
-                  Login
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/signup"
-                  className="hover:text-blue-300 transition-all duration-200"
-                >
-                  Sign Up
-                </Link>
-              </li>
+              {!user && (
+                <>
+                  <li>
+                    <Link
+                      to="/login"
+                      className="hover:text-blue-300 transition-all duration-200"
+                    >
+                      Login
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      to="/signup"
+                      className="hover:text-blue-300 transition-all duration-200"
+                    >
+                      Sign Up
+                    </Link>
+                  </li>
+                </>
+              )}
               <li>
                 <Link
                   to="/wishlist"

@@ -1,16 +1,21 @@
 import { useState } from "react";
+import toast from "react-hot-toast";
 import { NavLink } from "react-router-dom";
+import { forgotPassword } from "../services/authServices";
 
 export default function ForgotPassword() {
   const [email, setEmail] = useState("");
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-
-    console.log("Reset link sent to:", email);
-
-    // Later: call backend API
-    // await axios.post("/api/auth/forgot-password", { email })
+    try {
+      // Later: call backend API
+      await forgotPassword({ email });
+      toast.success("Reset link sent to email");
+      setEmail("");
+    } catch (error) {
+      toast.error(error);
+    }
   };
 
   return (

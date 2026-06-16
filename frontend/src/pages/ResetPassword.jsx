@@ -1,27 +1,23 @@
 import { useState } from "react";
+import { resetPassword } from "../services/authServices";
+import toast from "react-hot-toast";
+import { useParams } from "react-router-dom";
 
 export default function ResetPassword() {
-  const [form, setForm] = useState({
-    password: "",
-    confirmPassword: "",
-  });
+  const { token } = useParams();
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
 
-  const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
-  };
-
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-
-    if (form.password !== form.confirmPassword) {
-      alert("Passwords do not match!");
-      return;
-    }
-
-    console.log("New password set:", form.password);
-
     // Later: call backend API
     // await axios.post(`/api/auth/reset-password/${token}`, { password })
+    try {
+      await resetPassword({ password, confirmPassword }, token);
+      toast.success("Password reset successfully");
+    } catch (error) {
+      toast.error(error);
+    }
   };
 
   return (
@@ -44,8 +40,8 @@ export default function ResetPassword() {
             <input
               type="password"
               name="password"
-              value={form.password}
-              onChange={handleChange}
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
               className="w-full border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               placeholder="Enter new password"
               required
@@ -60,8 +56,8 @@ export default function ResetPassword() {
             <input
               type="password"
               name="confirmPassword"
-              value={form.confirmPassword}
-              onChange={handleChange}
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
               className="w-full border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               placeholder="Confirm new password"
               required

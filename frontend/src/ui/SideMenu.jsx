@@ -108,7 +108,7 @@ export default function SideMenu({ open, setOpen }) {
             to="/products?category=electronics"
             className="transition-all duration-200 hover:text-blue-700"
           >
-            Electronics
+            Electronic Gadget
           </NavLink>
 
           <NavLink

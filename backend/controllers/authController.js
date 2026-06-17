@@ -12,15 +12,19 @@ const signInToken = (id) => {
   });
 };
 
-const createSendToken = (user, statusCode, res) => {
+const createSendToken = (user, statusCode, res, req) => {
   const token = signInToken(user._id);
+
+  // Check if request is from localhost (allow HTTP) or production (require HTTPS)
+  const isLocalhost = req && req.get("host")?.includes("localhost");
+
   const tokenOptions = {
     expires: new Date(
       Date.now() + process.env.JWT_COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000,
     ),
     httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
-    sameSite: "none",
+    secure: isLocalhost ? false : process.env.NODE_ENV === "production",
+    sameSite: isLocalhost ? "lax" : "none",
   };
 
   res.cookie("jwt", token, tokenOptions);
@@ -44,7 +48,7 @@ export const signup = catchAsync(async (req, res, next) => {
     role: req.body.role,
   });
 
-  createSendToken(user, 201, res);
+  createSendToken(user, 201, res, req);
 });
 
 export const login = catchAsync(async (req, res, next) => {
@@ -61,7 +65,7 @@ export const login = catchAsync(async (req, res, next) => {
   }
 
   // 3) If everything ok, send token to client
-  createSendToken(user, 200, res);
+  createSendToken(user, 200, res, req);
 });
 
 export const protect = catchAsync(async (req, res, next) => {
@@ -137,7 +141,7 @@ export const forgotPassword = catchAsync(async (req, res, next) => {
   await user.save({ validateBeforeSave: false });
 
   // 3) Send it to user's email
-  const resetUrl = `http://localhost:5173/resetPassword/${resetToken}`;
+  const resetUrl = `https://e-commerce-7pxu.onrender.com/resetPassword/${resetToken}`;
 
   const message = `
   <div style="font-family: Arial, sans-serif; line-height: 1.6;">

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { resetPassword } from "../services/authServices";
 import toast from "react-hot-toast";
-import { useParams } from "react-router-dom";
+import { NavLink, useParams } from "react-router-dom";
 
 export default function ResetPassword() {
   const { token } = useParams();
@@ -15,6 +15,8 @@ export default function ResetPassword() {
     try {
       await resetPassword({ password, confirmPassword }, token);
       toast.success("Password reset successfully");
+      setPassword("");
+      setConfirmPassword("");
     } catch (error) {
       toast.error(error);
     }
@@ -74,12 +76,12 @@ export default function ResetPassword() {
         </form>
 
         {/* Back to login */}
-        <p className="text-sm text-center mt-4 text-gray-600">
-          Back to{" "}
-          <a href="#" className="text-blue-600 hover:underline">
-            Login
-          </a>
-        </p>
+        <NavLink
+          to="/login"
+          className="text-sm text-center mt-4  text-blue-600 hover:underline"
+        >
+          Login
+        </NavLink>
       </div>
     </div>
   );

@@ -1,9 +1,9 @@
 ﻿import axios from "axios";
-const API = import.meta.env.VITE_API_URL || "";
+// const API = import.meta.env.VITE_API_URL || "";
 
 export const getCart = async () => {
   try {
-    return await axios.get(`${API}/api/v1/cart`, { withCredentials: true });
+    return await axios.get(`/api/v1/cart`, { withCredentials: true });
   } catch (error) {
     if (error.response) throw error.response;
     throw error;
@@ -13,7 +13,7 @@ export const getCart = async () => {
 export const addToCart = async (productId, quantity = 1) => {
   try {
     return await axios.post(
-      `${API}/api/v1/cart`,
+      `/api/v1/cart`,
       { productId, quantity },
       { withCredentials: true },
     );
@@ -30,7 +30,7 @@ export const updateCartItem = async (productId, quantity) => {
 
   try {
     return await axios.patch(
-      `${API}/api/v1/cart/${productId}`,
+      `/api/v1/cart/${productId}`,
       { quantity: Number(quantity) },
       { withCredentials: true },
     );
@@ -42,7 +42,7 @@ export const updateCartItem = async (productId, quantity) => {
 
 export const deleteCartItem = async (productId) => {
   try {
-    return await axios.delete(`${API}/api/v1/cart/${productId}`, {
+    return await axios.delete(`/api/v1/cart/${productId}`, {
       withCredentials: true,
     });
   } catch (error) {

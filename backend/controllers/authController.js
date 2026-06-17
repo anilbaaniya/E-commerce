@@ -21,6 +21,7 @@ const createSendToken = (user, statusCode, res) => {
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",
     sameSite: "none",
+    path: "/",
   };
 
   res.cookie("jwt", token, tokenOptions);
@@ -137,7 +138,7 @@ export const forgotPassword = catchAsync(async (req, res, next) => {
   await user.save({ validateBeforeSave: false });
 
   // 3) Send it to user's email
-  const resetUrl = `https://e-commerce-7pxu.onrender.com/resetPassword/${resetToken}`;
+  const resetUrl = `https://e-commerce-seven-theta-58.vercel.app/resetPassword/${resetToken}`;
 
   const message = `
   <div style="font-family: Arial, sans-serif; line-height: 1.6;">
@@ -243,7 +244,8 @@ export const logout = (req, res) => {
     httpOnly: true,
     expires: new Date(0), // instantly expires
     secure: process.env.NODE_ENV === "production",
-    sameSite: "strict",
+    sameSite: "none",
+    path: "/",
   });
 
   res.status(200).json({

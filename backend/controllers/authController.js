@@ -16,15 +16,17 @@ const createSendToken = (user, statusCode, res, req) => {
   const token = signInToken(user._id);
 
   // Check if request is from localhost (allow HTTP) or production (require HTTPS)
-  const isLocalhost = req && req.get("host")?.includes("localhost");
+  const host = req && req.get("host");
+  const isLocalhost =
+    host && (host.includes("localhost") || host.includes("127.0.0.1"));
 
   const tokenOptions = {
     expires: new Date(
       Date.now() + process.env.JWT_COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000,
     ),
     httpOnly: true,
-    secure: isLocalhost ? false : process.env.NODE_ENV === "production",
-    sameSite: isLocalhost ? "lax" : "none",
+    secure: isLocalhost ? false : true, // false for localhost HTTP, true for production HTTPS
+    sameSite: isLocalhost ? "lax" : "none", // lax for localhost, none for cross-origin production
   };
 
   res.cookie("jwt", token, tokenOptions);

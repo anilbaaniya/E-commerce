@@ -114,7 +114,7 @@ const router = createBrowserRouter([
         element: <Trending />,
       },
       {
-        path: "/profile",
+        path: "profile",
         element: <Profile />,
       },
       {

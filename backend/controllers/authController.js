@@ -12,21 +12,15 @@ const signInToken = (id) => {
   });
 };
 
-const createSendToken = (user, statusCode, res, req) => {
+const createSendToken = (user, statusCode, res) => {
   const token = signInToken(user._id);
-
-  // Check if request is from localhost (allow HTTP) or production (require HTTPS)
-  const host = req && req.get("host");
-  const isLocalhost =
-    host && (host.includes("localhost") || host.includes("127.0.0.1"));
-
   const tokenOptions = {
     expires: new Date(
       Date.now() + process.env.JWT_COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000,
     ),
     httpOnly: true,
-    secure: isLocalhost ? false : true, // false for localhost HTTP, true for production HTTPS
-    sameSite: isLocalhost ? "lax" : "none", // lax for localhost, none for cross-origin production
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "none",
   };
 
   res.cookie("jwt", token, tokenOptions);
@@ -50,7 +44,7 @@ export const signup = catchAsync(async (req, res, next) => {
     role: req.body.role,
   });
 
-  createSendToken(user, 201, res, req);
+  createSendToken(user, 201, res);
 });
 
 export const login = catchAsync(async (req, res, next) => {
@@ -67,7 +61,7 @@ export const login = catchAsync(async (req, res, next) => {
   }
 
   // 3) If everything ok, send token to client
-  createSendToken(user, 200, res, req);
+  createSendToken(user, 200, res);
 });
 
 export const protect = catchAsync(async (req, res, next) => {

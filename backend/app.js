@@ -14,6 +14,8 @@ import { wishlistRoute } from "./routes/wishlistRoute.js";
 
 export const app = express();
 
+app.set("trust proxy", 1);
+
 const allowedOrigins = [
   "http://localhost:5173",
   "https://e-commerce-seven-theta-58.vercel.app",
@@ -25,7 +27,6 @@ app.use(
     credentials: true,
   }),
 );
-
 app.use(express.json());
 app.use(cookieParser());
 

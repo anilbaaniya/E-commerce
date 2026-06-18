@@ -7,7 +7,7 @@ import {
 } from "react-icons/io5";
 import { getProduct } from "../../services/productService";
 import { useNavigate, useParams } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../../features/auth/cartSlice";
 import QuantitySelect from "./QuantitySelect";
 import Price from "./Price";
@@ -20,10 +20,12 @@ export default function ProductDetails() {
   const navigate = useNavigate();
 
   const [quantity, setQuantity] = useState(1);
-  const [wished, setWished] = useState(false);
+  // const [wished, setWished] = useState(false);
   const [added, setAdded] = useState(false);
 
   const [product, setProduct] = useState([]);
+  const wishlistItems = useSelector((state) => state.wishlist.items);
+  const isInWishlist = wishlistItems.some((item) => item._id === product._id);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -65,8 +67,10 @@ export default function ProductDetails() {
         <Image
           image={image}
           discountPercent={discountPercent}
-          wished={wished}
-          setWished={setWished}
+          product={product}
+          isInWishlist={isInWishlist}
+          // wished={wished}
+          // setWished={setWished}
         />
         {/* Right: Details */}
         <div className="flex flex-col gap-4">

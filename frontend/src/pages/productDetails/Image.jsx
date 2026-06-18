@@ -1,6 +1,39 @@
-import { IoHeart, IoHeartOutline } from "react-icons/io5";
+import { removeWishlistItem } from "../../features/auth/wishlistSlice.js";
+import { addToWishlist } from "../../features/auth/wishlistSlice.js";
+import toast from "react-hot-toast";
+import { useDispatch, useSelector } from "react-redux";
+import { MdFavorite, MdFavoriteBorder } from "react-icons/md";
 
-export default function Image({ image, discountPercent, wished, setWished }) {
+export default function Image({
+  image,
+  discountPercent,
+
+  product,
+}) {
+  const wishlistItems = useSelector((state) => state.wishlist.items);
+  const isInWishlist = wishlistItems.some((item) => item._id === product._id);
+  const dispatch = useDispatch();
+
+  const handleWishlistToggle = async (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+    try {
+      if (isInWishlist) {
+        await dispatch(removeWishlistItem(product._id)).unwrap();
+        toast.success("Removed from Wishlist");
+      } else {
+        await dispatch(addToWishlist(product._id)).unwrap();
+        toast.success("Added to Wishlist");
+      }
+    } catch (error) {
+      toast.error(
+        isInWishlist
+          ? "Failed to remove from wishlist"
+          : "Failed to add to wishlist",
+      );
+      console.error("Wishlist operation failed:", error);
+    }
+  };
   return (
     <div className="flex gap-3">
       {/* Main Image */}
@@ -16,13 +49,13 @@ export default function Image({ image, discountPercent, wished, setWished }) {
         </span>
         {/* Wishlist */}
         <button
-          onClick={() => setWished((w) => !w)}
+          onClick={handleWishlistToggle}
           className="absolute top-3 right-3 bg-white rounded-full p-2 shadow hover:scale-110 transition"
         >
-          {wished ? (
-            <IoHeart className="text-blue-500 text-xl" />
+          {isInWishlist ? (
+            <MdFavorite className="text-blue-500 text-xl" />
           ) : (
-            <IoHeartOutline className="text-gray-400 text-xl" />
+            <MdFavoriteBorder className="text-gray-400 text-xl hover:text-blue-500" />
           )}
         </button>
       </div>

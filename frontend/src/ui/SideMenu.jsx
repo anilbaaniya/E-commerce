@@ -123,7 +123,7 @@ export default function SideMenu({ open, setOpen }) {
           {/* Other Categories */}
           <NavLink
             to="/products?category=electronics"
-            className={`ml-3 px-2 py-1 rounded hover:text-blue-700 font-bold ${
+            className={`ml-3 px-2 py-1 rounded hover:text-blue-700 font-semibold text-lg ${
               active("electronics") ? "bg-blue-200 " : ""
             }`}
           >
@@ -132,7 +132,7 @@ export default function SideMenu({ open, setOpen }) {
 
           <NavLink
             to="/products?category=stationery"
-            className={`ml-3 px-2 py-1 rounded hover:text-blue-700 ${
+            className={`ml-3 px-2 py-1 rounded hover:text-blue-700 font-semibold text-lg ${
               active("stationery") ? "bg-blue-200 " : ""
             }`}
           >

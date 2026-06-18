@@ -18,7 +18,6 @@ export default function WishlistItem({ item, onRemove }) {
     try {
       await dispatch(addToCart({ productId: _id, quantity: 1 })).unwrap();
       toast.success("Added to Cart");
-      onRemove(_id);
     } catch (error) {
       toast.error("Failed to add to cart");
       console.error("Add to cart failed:", error);

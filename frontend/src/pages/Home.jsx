@@ -1,4 +1,6 @@
 import { NavLink } from "react-router-dom";
+import { Typewriter } from "react-simple-typewriter";
+
 import FeaturedProducts from "../ui/featuredProduct/FeaturedProducts";
 
 export default function Home() {
@@ -10,7 +12,15 @@ export default function Home() {
             Limited Time Offer ⏰
           </button> */}
           <button className=" text-blue-600  text-xl font-bold  ">
-            Limited Time Offer ⏰
+            <Typewriter
+              words={[" Limited Time Offer ⏰"]}
+              loop={true}
+              cursor
+              cursorStyle=""
+              typeSpeed={300}
+              deleteSpeed={100}
+              delaySpeed={1000}
+            />
           </button>
         </div>
         <div className="pl-34 pt-20">

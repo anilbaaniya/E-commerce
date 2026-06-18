@@ -8,6 +8,7 @@ import {
   removeWishlistItem,
 } from "../../features/auth/wishlistSlice";
 import toast from "react-hot-toast";
+import { NavLink } from "react-router-dom";
 
 const Wishlist = () => {
   const dispatch = useDispatch();
@@ -54,10 +55,13 @@ const Wishlist = () => {
 
         {/* Continue Shopping Button */}
         <div className="mt-12 text-center">
-          <button className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-xl transition flex items-center gap-2 mx-auto">
+          <NavLink
+            to="/products"
+            className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-xl transition flex items-center gap-2 mx-auto"
+          >
             <ShoppingBag size={20} />
             Continue Shopping
-          </button>
+          </NavLink>
         </div>
       </div>
     </div>

@@ -20,7 +20,7 @@ export default function Image({ image, discountPercent, wished, setWished }) {
           className="absolute top-3 right-3 bg-white rounded-full p-2 shadow hover:scale-110 transition"
         >
           {wished ? (
-            <IoHeart className="text-red-500 text-xl" />
+            <IoHeart className="text-blue-500 text-xl" />
           ) : (
             <IoHeartOutline className="text-gray-400 text-xl" />
           )}

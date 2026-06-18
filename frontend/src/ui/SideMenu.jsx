@@ -31,7 +31,7 @@ export default function SideMenu({ open, setOpen }) {
         <div className="p-4 flex flex-col gap-6 ">
           {/* Men Clothing */}
           <div className="flex flex-col gap-2 w-40">
-            <h3 className="font-semibold text-gray-700">Men Clothing</h3>
+            <h3 className="font-semibold text-gray-700">Men's Fashion</h3>
 
             <NavLink
               // onClick={() => setOpen(false)}
@@ -82,7 +82,7 @@ export default function SideMenu({ open, setOpen }) {
 
           {/* Women Clothing */}
           <div className="flex flex-col gap-2">
-            <h3 className="font-semibold text-gray-700">Women Clothing</h3>
+            <h3 className="font-semibold text-gray-700">Women's Fashion</h3>
 
             <NavLink
               to="/products?gender=female&subCategory=t-shirts"
@@ -92,15 +92,6 @@ export default function SideMenu({ open, setOpen }) {
             >
               T-Shirt
             </NavLink>
-
-            {/* <NavLink
-              to="/products?gender=female&subCategory=jackets"
-              className={`ml-3 px-2 py-1 rounded hover:text-blue-700 ${
-                isActive("female", "jackets") ? "bg-blue-200 " : ""
-              }`}
-            >
-              Jacket
-            </NavLink> */}
 
             <NavLink
               to="/products?gender=female&subCategory=jeans"
@@ -132,7 +123,7 @@ export default function SideMenu({ open, setOpen }) {
           {/* Other Categories */}
           <NavLink
             to="/products?category=electronics"
-            className={`ml-3 px-2 py-1 rounded hover:text-blue-700 ${
+            className={`ml-3 px-2 py-1 rounded hover:text-blue-700 font-bold ${
               active("electronics") ? "bg-blue-200 " : ""
             }`}
           >

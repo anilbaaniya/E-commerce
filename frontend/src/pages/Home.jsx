@@ -16,7 +16,6 @@ export default function Home() {
               words={[
                 "✨ New Arrivals Just Dropped",
                 "🔥 Limited Time Offer",
-                "🚀 Trending Styles Await",
                 "💎 Premium Fashion Collection",
                 "🛍️ Shop the Latest Trends",
                 "⚡ Up to 50% OFF Today",
@@ -24,9 +23,9 @@ export default function Home() {
               loop={true}
               cursor
               cursorStyle=""
-              typeSpeed={100}
-              deleteSpeed={40}
-              delaySpeed={1000}
+              typeSpeed={70}
+              deleteSpeed={30}
+              delaySpeed={500}
             />
           </button>
         </div>

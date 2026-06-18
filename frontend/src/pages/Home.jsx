@@ -13,7 +13,14 @@ export default function Home() {
           </button> */}
           <button className=" text-blue-600  text-xl font-bold  ">
             <Typewriter
-              words={[" Limited Time Offer ⏰"]}
+              words={[
+                "✨ New Arrivals Just Dropped",
+                "🔥 Limited Time Offer",
+                "🚀 Trending Styles Await",
+                "💎 Premium Fashion Collection",
+                "🛍️ Shop the Latest Trends",
+                "⚡ Up to 50% OFF Today",
+              ]}
               loop={true}
               cursor
               cursorStyle=""

@@ -17,8 +17,8 @@ export default function Home() {
               loop={true}
               cursor
               cursorStyle=""
-              typeSpeed={300}
-              deleteSpeed={100}
+              typeSpeed={100}
+              deleteSpeed={40}
               delaySpeed={1000}
             />
           </button>

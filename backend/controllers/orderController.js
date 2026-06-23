@@ -2,6 +2,8 @@ import { Order } from "../models/orderModel.js";
 import { AppError } from "../utils/appError.js";
 import { catchAsync } from "../utils/catchAsync.js";
 import { Counter } from "../models/counterModel.js";
+import { User } from "../models/userModel.js";
+
 export const createOrder = catchAsync(async (req, res, next) => {
   // Increment counter
   const counter = await Counter.findOneAndUpdate(
@@ -30,6 +32,15 @@ export const createOrder = catchAsync(async (req, res, next) => {
   if (!order) {
     return next(new AppError("New order cannot be created!", 500));
   }
+
+  await User.findByIdAndUpdate(
+    req.user._id,
+    { cart: [] },
+    {
+      new: true,
+      runValidators: true,
+    },
+  );
 
   res.status(201).json({
     status: "success",

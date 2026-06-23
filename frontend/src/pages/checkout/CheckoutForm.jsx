@@ -2,9 +2,12 @@ import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { createOrder } from "../../services/orderService.js";
 import { NavLink, useNavigate } from "react-router-dom";
+import { clearCart } from "../../features/auth/cartSlice.js";
+import { useDispatch } from "react-redux";
 
 export default function CheckoutForm({ items, totalAmount }) {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const {
     register,
@@ -26,6 +29,8 @@ export default function CheckoutForm({ items, totalAmount }) {
     try {
       const response = await createOrder(orderData);
       toast.success("Order placed successfully!");
+      dispatch(clearCart());
+
       navigate(`/success/${response.data.data._id}`);
     } catch (error) {
       console.log(error);

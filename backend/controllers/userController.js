@@ -23,7 +23,7 @@ export const getUser = catchAsync(async (req, res, next) => {
   const user = await User.findById(req.params.id);
 
   if (!user) {
-    return next(new AppError("There is not user with this id!", 400));
+    return next(new AppError("There is no user with this id!", 400));
   }
 
   res.status(200).json({

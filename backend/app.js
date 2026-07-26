@@ -2,6 +2,10 @@ import express from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 import morgan from "morgan";
+import helmet from "helmet";
+import rateLimit from "express-rate-limit";
+import mongoSanitize from "express-mongo-sanitize";
+import xss from "xss-clean";
 
 import { userRoute } from "./routes/userRoutes.js";
 import { productRoute } from "./routes/productRoutes.js";
@@ -22,6 +26,7 @@ const allowedOrigins = [
   "https://e-commerce-seven-theta-58.vercel.app",
 ];
 
+app.use(helmet());
 app.use(
   cors({
     origin: function (origin, callback) {
@@ -36,6 +41,16 @@ app.use(
     credentials: true,
   }),
 );
+
+pp.use(
+  rateLimit({
+    windowMs: 15 * 60 * 1000,
+    max: 100,
+  }),
+);
+
+app.use(mongoSanitize());
+app.use(xss);
 
 app.use(cookieParser());
 app.use(express.json());

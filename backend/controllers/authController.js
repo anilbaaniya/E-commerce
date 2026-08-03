@@ -6,6 +6,8 @@ import { AppError } from "../utils/appError.js";
 // import { sendEmail } from "../utils/email.js";
 import { sendEmail } from "../utils/resendEmail.js";
 
+const isProduction = process.env.NODE_ENV === "production";
+
 const signInToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET, {
     expiresIn: process.env.JWT_EXPIRES_IN,
@@ -19,8 +21,8 @@ const createSendToken = (user, statusCode, res) => {
       Date.now() + process.env.JWT_COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000,
     ),
     httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
-    sameSite: "none",
+    secure: isProduction,
+    sameSite: isProduction ? "none" : "lax",
     path: "/",
   };
 
@@ -243,8 +245,9 @@ export const logout = (req, res) => {
   res.cookie("jwt", "", {
     httpOnly: true,
     expires: new Date(0), // instantly expires
-    secure: process.env.NODE_ENV === "production",
-    sameSite: "none",
+    // secure: isProduction,
+    secure: false,
+    sameSite: isProduction ? "none" : "lax",
     path: "/",
   });
 

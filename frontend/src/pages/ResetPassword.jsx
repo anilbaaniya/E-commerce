@@ -24,7 +24,7 @@ export default function ResetPassword() {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-white text-black">
-      <div className="w-full max-w-md p-8 border border-gray-200 rounded-lg shadow-sm">
+      <div className="w-full max-w-md p-8 rounded-2xl border border-gray-100 shadow-xl">
         {/* Title */}
         <h2 className="text-2xl font-bold text-center mb-2">Reset Password</h2>
 
